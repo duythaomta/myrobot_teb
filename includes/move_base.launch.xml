@@ -1,0 +1,30 @@
+<!--
+    ROS navigation stack with velocity smoother and safety (reactive) controller
+-->
+<launch>
+
+  <arg name="odom_topic" default="odom" />
+
+  <node pkg="move_base" type="move_base" respawn="true" name="move_base" output="screen">
+    <rosparam file="$(find myrobot_teb)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find myrobot_teb)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find myrobot_teb)/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find myrobot_teb)/param/global_costmap_params.yaml" command="load" />
+
+  <!-- teb_local_planner -->
+  <rosparam file="$(find myrobot_teb)/param/teb_local_planner_params.yaml" command="load" />
+
+  <!-- LOAD COSTMAP_CONVERTER PARAMETERS HERE -->
+  <rosparam file="$(find myrobot_teb)/launch/includes/costmap_converter_params.yaml" command="load" />
+
+
+    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+    <param name="planner_frequency" value="1.0" />
+    <param name="planner_patience" value="5.0" />
+
+    <!-- for teb_local_planner -->
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+    <param name="controller_frequency" value="5.0" />
+    <param name="controller_patience" value="15.0" />
+  </node>
+</launch>

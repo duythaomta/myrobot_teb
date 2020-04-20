@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <!-- gazebo  -->
+  <include file="$(find myrobot_teb)/launch/gazebo_myrobot.launch"/>
+  <!-- navigation, rviz  -->
+  <include file="$(find diff_robot_teb_darknet)/launch/navigation.launch"/>
+  <!-- darknet_ros  -->
+  <include file="$(find darknet_ros)/launch/darknet_ros.launch">
+    <arg name="image" value="/rrbot/camera1/image_raw" />
+</include>
+</launch>
